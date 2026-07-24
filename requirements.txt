@@ -1,5 +1,5 @@
 fastapi[standard]
 mariadb
-dotenv
+python-dotenv
 starlette
 tinytag
