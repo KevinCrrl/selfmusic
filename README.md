@@ -28,7 +28,7 @@ Debe ubicarse en la misma carpeta donde esté ubicado el archivo `main.py`.
 
 #### Crear la base de datos y la(s) tabla(s)
 
-El archivo `create_db.sql` contiene comados SQL que puede correr para crear una base de datos `selfmusic` con la tabla `music` y la tabla `users`.
+El archivo `create_db.sql` contiene comados SQL que puede correr para crear una base de datos `selfmusic` con la tabla `music`.
 
 #### Instalar las dependencias de Python
 
@@ -78,7 +78,7 @@ uvicorn main:app --ssl-keyfile=./key.pem --ssl-certfile=./certificate.pem --port
 
 Con ello, puede acceder a [http://127.0.0.1:8000](http://127.0.0.1:8000) o a [https://127.0.0.1:8000](https://127.0.0.1:8000) si usó SSL.
 
-Verá una interfaz con un buscador y una cabecera con botones de inicio de sesión y registro (estas funciones de usuarios aún no están implementadas), si se detectaron géneros musicales en la base de datos, se mostrará debajo del motor de búsqueda una sección de playlists que agrupan las canciones que corresponden a dichos géneros musicales.
+Verá una interfaz con un buscador y una cabecera con el nombre del proyecto, si se detectaron géneros musicales en la base de datos, se mostrará debajo del motor de búsqueda una sección de playlists que agrupan las canciones que corresponden a dichos géneros musicales, al final hay un footer con enlaces como la documentación de la API y la licencia en formato HTML.
 
 Puede encontrar más documentación sobre las funciones visitando la documentación automática:
 
@@ -96,4 +96,4 @@ SelfMusic NO incluye audios de prueba ni de ningún tipo, el usuario o desarroll
 
 El objetivo de este proyecto NO es la promoción de la piratería o el uso no autorizado de material ajeno, este es un proyecto educativo y accesible para todos en términos de código, se recomienda su uso con material del cual se tenga permiso y/o material propio.
 
-Este repositorio contiene únicamente código fuente y no recolecta datos de ningún tipo. El sistema de login incluido solo guarda datos en la máquina donde se ejecute. Si realizas un fork o despliegas este proyecto, asumes la total responsabilidad sobre su administración, la privacidad de los datos y cualquier funcionalidad adicional que decidas integrar (como analíticas, anuncios o rastreadores).
+Este repositorio contiene únicamente código fuente y no recolecta datos de ningún tipo. La base de datos solo está pensada para almacenar información relacionada con el audio incluido. Si realizas un fork o despliegas este proyecto, asumes la total responsabilidad sobre su administración, la privacidad de los datos y cualquier funcionalidad adicional que decidas integrar (como analíticas, anuncios, rastreadores o sistema de usuarios más allá de playlists).

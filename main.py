@@ -150,11 +150,6 @@ def playlist(request: Request, genre: str):
     return templates.TemplateResponse(request, "player.html", context)
 
 
-@app.get("/login")
-def login(request: Request):
-    return templates.TemplateResponse(request, "login.html")
-
-
-@app.get("/register")
-def register(request: Request):
-    return templates.TemplateResponse(request, "register.html")
+@app.get("/license")
+def license_info(request: Request):
+    return templates.TemplateResponse(request, "license.html")

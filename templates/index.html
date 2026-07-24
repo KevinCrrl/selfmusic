@@ -11,8 +11,7 @@
 
 <body>
     <header>
-        <button type="button" id="login_btn" onclick="redirect('/login')">Iniciar Sesión</button>
-        <button type="button" id="register_btn" onclick="redirect('/register')">Registrarse</button>
+        <p style="font-size: 50px; margin: 0; text-align: left;">SelfMusic</p>
     </header>
     <div class="container">
         <form action="search">
@@ -25,6 +24,14 @@
     {% for playlist in playlists %}
         <button onclick="redirect('/playlist?genre={{ playlist.type }}')">{{ playlist.type }}</button>
     {% endfor %}
+    <br>
+    <br>
+    <footer>
+        <h2>SelfMusic Por KevinCrrl</h2>
+        <a href="/docs">Documentación de la API</a>
+        <br>
+        <a href="/license">Información de licencia</a>
+    </footer>
 </body>
 
 </html>
