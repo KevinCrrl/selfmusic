@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title id="title">{{ name }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script async src="/scripts/main.js" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+
+<body>
+    <header>
+        <form action="search">
+            <input type="text" name="value" id="value" required>
+            <button type="submit">Buscar</button>
+        </form>
+    </header>
+    <div class="container">
+        <div class="player">
+            <img src="data:image/jpeg;base64,{{ image }}" alt="Portada" id="FrontCover" height="300px" width="300px">
+            <div class="name">{{ name }}</div>
+            <div class="artist">{{ artist }}</div>
+            <br>
+            <audio src="{{ file }}" class="music" controls></audio>
+            <br>
+            <button onclick="document.querySelector('.music').currentTime = 0">Reiniciar audio</button>
+        </div>
+    </div>
+    <h2>{{ content_msg }}</h2>
+    <ul>
+        {% for recom in recoms %}
+        <li>{{ recom.name }} <button onclick="redirect('/player?mid=' + '{{ recom.id }}')">Reproducir</button></li>
+        <br>
+        {% endfor %}
+    </ul>
+    <script>
+        /*
+        @licstart  The following is the entire license notice for the JavaScript code in this file.
+
+        JS script for the SelfMusic player
+        Copyright (C) 2026 KevinCrrl
+
+        This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+        You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+        @licend  The above is the entire license notice
+        for the JavaScript code in this file.
+        */
+
+        // Obtener todos los elementos a modificar desde el HTML
+        let title = document.getElementById("title");
+        let image = document.getElementById("FrontCover");
+        let m_name = document.querySelector(".name");
+        let artist = document.querySelector(".artist");
+        let music = document.querySelector(".music");
+
+        // Intento de reproducción automática (Posible fallo si el navegador lo impide)
+        music.play();
+
+        // Obtener playlist desde Jinja2
+        const playlist = {{ array | tojson }}; // No es error, Jinja lo cambiará y funcionará en el navegador
+
+        let cont = 0;
+
+        // Estar pendientes de cuando un audio termina
+        music.addEventListener("ended", (event) => {
+            // Cambiar el HTML con los nuevos metadatos del nuevo audio
+            title.textContent = playlist[cont].name;
+            image.setAttribute("src", "data:image/jpeg;base64," + playlist[cont].image);
+            music.setAttribute("src", "music/" + playlist[cont].filename);
+            m_name.textContent = playlist[cont].name;
+            artist.textContent = playlist[cont].artist;
+            // Intentar reproducir y aumentar el contador para esperar el siguiente audio en el array
+            music.play();
+            /*
+            Si se supera la longitud del array, no aparece ningun error al usuario,
+            solo se detiene en la ultima canción como debería ser.
+            */
+            cont++;
+        })
+    </script>
+</body>
+
+</html>

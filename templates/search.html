@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>SelfMusic</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/scripts/main.js" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+</head>
+
+<body>
+    <header>
+        <form action="search">
+            <input type="text" name="value" id="value" required>
+            <button type="submit">Buscar</button>
+        </form>
+    </header>
+    <h1>{{ message }}</h1>
+    <ul>
+        {% for music in results %}
+            <li>{{ music.name }} <button onclick="redirect('/player?mid=' + '{{ music.id }}')">Reproducir</button></li>
+            <br>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
