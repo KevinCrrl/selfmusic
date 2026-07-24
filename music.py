@@ -27,8 +27,8 @@ else:
 
 cur = conn.cursor()
 
-for file in listdir("new"):
-    tag = TinyTag.get(path.join("new", file), image=True)
+for file in listdir("music"):
+    tag = TinyTag.get(path.join("music", file), image=True)
     print(f"name: {tag.title}")
     try:
         image = base64.b64encode(tag.images.any.data).decode("utf-8")

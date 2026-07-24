@@ -4,6 +4,10 @@ Self Music es un proyecto que implementa una interfaz web para la reproducción 
 
 El objetivo es crear un sistema simple, minimalista, eficiente, fácil de usar con botones intuitivos y sin capas innecesarias que retrasen la reproducción en el navegador del usuario.
 
+## TODO
+
+Tareas planeadas POR HACER: [TODO](TODO.md)
+
 ## Hostear SelfMusic en local
 
 ### Entorno y programas necesarios
