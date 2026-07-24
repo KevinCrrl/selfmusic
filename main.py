@@ -12,6 +12,10 @@ from fastapi.templating import Jinja2Templates
 from dotenv import dotenv_values
 import mariadb
 
+VERSION = "0.1"
+
+print(f"Iniciando SelfMusic versión {VERSION}")
+
 values = dotenv_values()
 
 try:
@@ -49,7 +53,8 @@ def home(request: Request):
     context = {
         "request": request,
         "playlist_msg": playlists_msg,
-        "playlists": playlists
+        "playlists": playlists,
+        "version": VERSION
     }
     return templates.TemplateResponse(request, "index.html", context)
 
