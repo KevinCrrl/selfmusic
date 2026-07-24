@@ -95,3 +95,5 @@ SelfMusic se distribuye bajo los términos de la GNU Affero General Public Licen
 SelfMusic NO incluye audios de prueba ni de ningún tipo, el usuario o desarrollador que despliegue SelfMusic ya sea en local o en producción, es responsable del contenido que incluya en su servidor.
 
 El objetivo de este proyecto NO es la promoción de la piratería o el uso no autorizado de material ajeno, este es un proyecto educativo y accesible para todos en términos de código, se recomienda su uso con material del cual se tenga permiso y/o material propio.
+
+Este repositorio contiene únicamente código fuente y no recolecta datos de ningún tipo. El sistema de login incluido solo guarda datos en la máquina donde se ejecute. Si realizas un fork o despliegas este proyecto, asumes la total responsabilidad sobre su administración, la privacidad de los datos y cualquier funcionalidad adicional que decidas integrar (como analíticas, anuncios o rastreadores).

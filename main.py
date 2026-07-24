@@ -11,7 +11,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from dotenv import dotenv_values
 import mariadb
-import uvicorn
 
 values = dotenv_values()
 
@@ -52,7 +51,7 @@ def home(request: Request):
         "playlist_msg": playlists_msg,
         "playlists": playlists
     }
-    return templates.TemplateResponse(request=request, name="index.html", context=context)
+    return templates.TemplateResponse(request, "index.html", context)
 
 
 @app.get("/player", response_class=HTMLResponse)
@@ -149,3 +148,13 @@ def playlist(request: Request, genre: str):
     del array[0]
     context["array"] = array
     return templates.TemplateResponse(request, "player.html", context)
+
+
+@app.get("/login")
+def login(request: Request):
+    return templates.TemplateResponse(request, "login.html")
+
+
+@app.get("/register")
+def register(request: Request):
+    return templates.TemplateResponse(request, "register.html")
