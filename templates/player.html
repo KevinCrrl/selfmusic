@@ -24,7 +24,8 @@
             <br>
             <audio src="{{ file }}" class="music" controls></audio>
             <br>
-            <button onclick="document.querySelector('.music').currentTime = 0">Reiniciar audio</button>
+            <button onclick="music.currentTime = 0">Reiniciar audio</button>
+            <button onclick="music.currentTime = music.duration">Siguiente canción</button>
         </div>
     </div>
     <h2>{{ content_msg }}</h2>
