@@ -68,19 +68,22 @@
 
         // Estar pendientes de cuando un audio termina
         music.addEventListener("ended", (event) => {
-            // Cambiar el HTML con los nuevos metadatos del nuevo audio
-            title.textContent = playlist[cont].name;
-            image.setAttribute("src", "data:image/jpeg;base64," + playlist[cont].image);
-            music.setAttribute("src", "music/" + playlist[cont].filename);
-            m_name.textContent = playlist[cont].name;
-            artist.textContent = playlist[cont].artist;
-            // Intentar reproducir y aumentar el contador para esperar el siguiente audio en el array
-            music.play();
-            /*
-            Si se supera la longitud del array, no aparece ningun error al usuario,
-            solo se detiene en la ultima canción como debería ser.
-            */
-            cont++;
+            if (cont < playlist.length) { // Cambiar solo si el contador es menor a la longitud; NO menor o igual, ya que se aumentará una ultima vez en el ingreso
+                // Cambiar el HTML con los nuevos metadatos del nuevo audio
+                title.textContent = playlist[cont].name;
+                image.setAttribute("src", "data:image/jpeg;base64," + playlist[cont].image);
+                music.setAttribute("src", "music/" + playlist[cont].filename);
+                m_name.textContent = playlist[cont].name;
+                artist.textContent = playlist[cont].artist;
+                // Intentar reproducir y aumentar el contador para esperar el siguiente audio en el array
+                music.play();
+                /*
+                Aumentar el contador para la siguiente canción, cuando el contador sea una
+                unidad menor que la longitud del array, ingresará al condicional y aumentará una
+                ultima vez para la última canción sin mostrar errores en la consola.
+                */
+                cont++;
+            }
         })
     </script>
 </body>
