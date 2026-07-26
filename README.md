@@ -30,7 +30,7 @@ PORT=3306
 DATABASE=selfmusic
 ```
 
-Debe ubicarse en la misma carpeta donde esté ubicado el archivo `main.py`.
+Debe ubicarse en la misma carpeta donde esté ubicado el archivo `main.py` (src/selfmusic).
 
 #### Crear la base de datos y la(s) tabla(s)
 
@@ -49,8 +49,8 @@ pip install -r requirements.txt
 Cree la carpeta `music` en el mismo directorio donde se encuentre `main.py` y mueva hacia allí los audios que tenga disponible, SelfMusic NO provee ningún tipo de audio:
 
 ```bash
-mkdir music
-mv <RUTA_A_TUS_AUDIOS> music/
+mkdir src/selfmusic/music
+mv <RUTA_A_TUS_AUDIOS> src/selfmusic/music/
 ```
 
 #### Registrar los audios en la base de datos
@@ -58,6 +58,7 @@ mv <RUTA_A_TUS_AUDIOS> music/
 El script auxiliar `music.py` automatiza el registro del contenido en `music` extrayendo la metadata de cada audio, si el audio no tiene metadata o esta corrupto, este script no funcionará, simplemente ejecutelo asi:
 
 ```bash
+cd src/selfmusic/app
 python music.py
 ```
 
@@ -68,6 +69,7 @@ El script no extrae el género musical, por ello en todas las canciones será Nu
 Puede levantar el sistema usando FastAPI:
 
 ```bash
+# Dentro de src/selfmusic
 fastapi run
 
 # O si está haciendo pruebas de desarrollo o debugging
@@ -77,6 +79,7 @@ fastapi dev
 Si usa un certificado y una llave generados por ejemplo, con OpenSSL, puede usar directamente uvicorn y pasarle estos archivos:
 
 ```bash
+# en src/selfmusic
 uvicorn main:app --ssl-keyfile=./key.pem --ssl-certfile=./certificate.pem --port 8000 --host 0.0.0.0
 ```
 

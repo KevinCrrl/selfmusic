@@ -27,8 +27,8 @@ else:
 
 cur = conn.cursor()
 
-for file in listdir("music"):
-    tag = TinyTag.get(path.join("music", file), image=True)
+for file in listdir("../music"):
+    tag = TinyTag.get(path.join("../music", file), image=True)
     print(f"name: {tag.title}")
     try:
         image = base64.b64encode(tag.images.any.data).decode("utf-8")
@@ -36,7 +36,8 @@ for file in listdir("music"):
         image = None
     try:
         cur.execute(
-            "INSERT INTO music (name, artist, filename, image) VALUES (?, ?, ?, ?)",
+            "INSERT INTO music (name, artist, filename, image) VALUES \
+(?, ?, ?, ?)",
             (tag.title, tag.artist, file, image))
     except mariadb.IntegrityError as e:
         print(f"{e} en archivo {file}")

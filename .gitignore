@@ -1,7 +1,6 @@
 .env
 music/
 new/
-rename.py
 query*.sql
 .vscode/
 __pycache__/
