@@ -12,12 +12,12 @@ import shutil as sh
 import base64
 import sys
 
-from app.server import VERSION, conn, cur
-
 from tinytag import TinyTag
 import uvicorn as uvc
 import mariadb
 import typer
+
+from app.server import VERSION, conn, cur
 
 cli = typer.Typer()
 
@@ -30,6 +30,7 @@ def add_music(directory: str = "new"):
         sys.exit(1)
     if not path.exists("music"):
         makedirs("music")
+    failed = 0
     for file in listdir(directory):
         dir_file = path.join(directory, file)
         tag = TinyTag.get(dir_file, image=True)
@@ -44,10 +45,17 @@ VALUES (?, ?, ?, ?, ?)",
                 (tag.title, tag.artist, file, image, tag.genre))
         except mariadb.IntegrityError as e:
             print(f"{e} en archivo {file}")
+            failed += 1
         else:
             sh.copy(dir_file, "music")
 
     conn.commit()
+
+    print()
+    if failed > 0:
+        print(f"Proceso terminado con {failed} archivos con error.")
+    else:
+        print("Proceso terminado sin errores.")
 
 
 @cli.command("serve", help="Inicia el servidor SelfMusic")
@@ -58,7 +66,10 @@ def serve(ssl: bool = False, host: str = "0.0.0.0", port: int = 8000,
                 ssl_certfile=certificate)
     else:
         uvc.run("app.server:app", host=host, port=port)
-    print("Cerrando conexión con la base de datos...")
+
+    # Cerrar conexión ya que cuando se pulsa Ctrl + C para cerrar
+    # el proceso de uvicorn, Typer "atrapa" el error de interrupción
+    # por teclado y no permite cerrar la conexión al final
     conn.close()
 
 
@@ -69,3 +80,4 @@ def version():
 
 if __name__ == "__main__":
     cli()
+    conn.close()
