@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from dotenv import dotenv_values
 import mariadb
 
-VERSION = "0.1"
+VERSION = "0.2"
 
 values = dotenv_values()
 
