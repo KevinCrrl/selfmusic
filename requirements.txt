@@ -3,3 +3,5 @@ mariadb
 python-dotenv
 starlette
 tinytag
+typer
+uvicorn

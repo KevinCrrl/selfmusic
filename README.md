@@ -44,43 +44,46 @@ El archivo `requirements.txt` tiene los nombres de las librerías necesarias par
 pip install -r requirements.txt
 ```
 
-#### Crear y almacenar audios en la carpeta music
+#### SelfMusic CLI
 
-Cree la carpeta `music` en el mismo directorio donde se encuentre `main.py` y mueva hacia allí los audios que tenga disponible, SelfMusic NO provee ningún tipo de audio:
+Dentro de src/selfmusic la carpeta `app` contiene una CLI para administrar el servidor y la base de datos, puede ver los comandos disponibles asi:
 
 ```bash
-mkdir src/selfmusic/music
-mv <RUTA_A_TUS_AUDIOS> src/selfmusic/music/
+cd src/selfmusic
+python -m app.selfmusic --help
 ```
+
+En esta documentación tambien encontrará los usos comunes de esta CLI.
 
 #### Registrar los audios en la base de datos
 
-El script auxiliar `music.py` automatiza el registro del contenido en `music` extrayendo la metadata de cada audio, si el audio no tiene metadata o esta corrupto, este script no funcionará, simplemente ejecutelo asi:
+Con la CLI de SelfMusic puede automatizar el registro del contenido en `music` extrayendo la metadata de cada audio, si el audio no tiene metadata o esta corrupto, este script no funcionará, simplemente ejecutelo asi:
 
 ```bash
-cd src/selfmusic/app
-python music.py
+# En src/selfmusic
+python -m app.selfmusic add-music <RUTA_A_TU_CONTENIDO>
 ```
-
-El script no extrae el género musical, por ello en todas las canciones será Null y deberá llenarlo manualmente o con un script propio.
 
 #### Levantar el servidor:
 
 Puede levantar el sistema usando FastAPI:
 
 ```bash
-# Dentro de src/selfmusic
-fastapi run
-
-# O si está haciendo pruebas de desarrollo o debugging
-fastapi dev
+# En src/selfmusic
+python -m app.selfmusic serve
 ```
 
 Si usa un certificado y una llave generados por ejemplo, con OpenSSL, puede usar directamente uvicorn y pasarle estos archivos:
 
 ```bash
-# en src/selfmusic
-uvicorn main:app --ssl-keyfile=./key.pem --ssl-certfile=./certificate.pem --port 8000 --host 0.0.0.0
+# En src/selfmusic
+python -m app.selfmusic serve --ssl --key <KEY_FILE> --certificate <CERTIFICATE_FILE>
+```
+
+Puede consultar más personalizaciones del comando serve usando:
+
+```bash
+python -m app.selfmusic serve --help
 ```
 
 #### Acceder desde el navegador

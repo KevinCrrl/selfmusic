@@ -14,8 +14,6 @@ import mariadb
 
 VERSION = "0.1"
 
-print(f"Iniciando SelfMusic versión {VERSION}")
-
 values = dotenv_values()
 
 try:
