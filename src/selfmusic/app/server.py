@@ -14,7 +14,7 @@ import mariadb
 
 VERSION = "0.2"
 
-values = dotenv_values()
+values: dict = dotenv_values()
 
 try:
     conn = mariadb.connect(

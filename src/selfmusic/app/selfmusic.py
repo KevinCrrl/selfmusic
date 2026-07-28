@@ -24,7 +24,9 @@ cli = typer.Typer()
 
 @cli.command("add-music", help="Añade los audios de una carpeta a la base \
 de datos y copia el archivo a la carpeta music/")
-def add_music(directory: str = "new"):
+def add_music(directory: str = "new",
+              fallback_image: str = "static/favicon.ico"):
+    fallback_exists = path.exists(fallback_image)
     if not path.exists(directory):
         print(f"ERROR: {directory} no existe.")
         sys.exit(1)
@@ -37,7 +39,13 @@ def add_music(directory: str = "new"):
         try:
             image = base64.b64encode(tag.images.any.data).decode("utf-8")
         except AttributeError:
-            image = None
+            if fallback_exists:
+                with open(fallback_image, "rb") as img:
+                    image = base64.b64encode(img.read()).decode("utf-8")
+            else:
+                print("ADVERTENCIA: La imagen de fallback especificada no \
+existe!")
+                image = None
         try:
             cur.execute(
                 "INSERT INTO music (name, artist, filename, image, type) \
